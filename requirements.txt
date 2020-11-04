@@ -1,0 +1,4 @@
+eventlet==0.29.1
+pandas==0.25.0
+requests==2.24.0
+pdfkit==0.6.1
