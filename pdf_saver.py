@@ -56,7 +56,7 @@ def print_topdf(url, filename, dirname):
 if __name__ == '__main__': 
     with open('htmlpdf_url.txt', encoding='utf-8')as f:
         lines = f.readlines()
-    lines = lines[:20]
+    #lines = lines[:20]
     num = int(len(lines) / 8) + 1
     process_list = []
     for i in range(8):  #开启5个子进程执行fun1函数
