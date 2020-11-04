@@ -4,13 +4,14 @@
 
 ## 安装
 - python 3.7
+- ```pip install -r requirements```
 
 ## 使用方法
-- 更改覆盖company.txt文件，格式如下（参考company.txt）
+- 更改覆盖company.txt文件，格式如下（参考company.txt）  
   公司  省市  
   xxx公司 北京市;大兴区  
   ……  
-- 更改覆盖url_list.txt文件，格式如下（参考url_list.txt）
+- 更改覆盖url_list.txt文件，格式如下（参考url_list.txt）  
   省市  类别1 类别2 类别3……  
   北京市 url1  url2……  
   大兴区 ……  
@@ -19,7 +20,6 @@
   - 定位“哈哈”在url中出现的位置，将其替换为{}，上例中替换之后结果为http://www.jiangsu.gov.cn/jrobot/search.do?q={}&pg=10&p=1&tpl=2&category=&webid=79&x=0&y=0
 - 在cmd中运行如下命令（若最后一个命令长时间不结束，cmd长时间不更新，可以按ctrl+c）  
 ```
-pip install -r requirements
 python url_generator.py
 python pdf_saver.py
 ```
