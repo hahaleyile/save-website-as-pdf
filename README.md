@@ -4,7 +4,7 @@
 
 ## 安装
 - python 3.7
-- ```pip install -r requirements```
+- ```pip install -r requirements.txt```
 
 ## 使用方法
 - 更改覆盖company.txt文件，格式如下（参考company.txt）  
