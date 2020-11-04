@@ -7,6 +7,9 @@
 - ```pip install -r requirements.txt```
 
 ## 使用方法
+- 下载wkhtmltopdf.exe, 放在同一目录下
+  - 百度网盘链接：https://pan.baidu.com/s/1K4z5OdLTrn8dJJX0eIanGg 
+  - 提取码：1je8 
 - 更改覆盖company.txt文件，格式如下（参考company.txt）  
   公司  省市  
   xxx公司 北京市;大兴区  
