@@ -11,6 +11,18 @@ a table of base url for each location and each website
 import pandas as pd
 import pickle
 
+def is_chinese(string):
+    """
+    检查整个字符串是否包含中文
+    :param string: 需要检查的字符串
+    :return: bool
+    """
+    for ch in string:
+        if u'\u4e00' <= ch <= u'\u9fff':
+            return True
+
+    return False
+
 print('读入机构列表...')
 df = pd.read_csv('company.txt', sep='\t')
 com2addr = dict(zip(list(df['公司']), list(df['省市'])))
@@ -54,7 +66,7 @@ for com in com2addr:
     for addr in com2addr[com]:
         urls = urldic[addr]
         for typename in urls:
-            if str(urls[typename]).startswith('http'):
+            if str(urls[typename]).startswith('http') and not is_chinese(str(urls[typename])):
                 url = urls[typename].replace('{}', com)
                 linestowrite.append('{}-{}-{}\t{}'.format(com, addr, typename, url))
 with open('htmlpdf_url.txt', 'w', encoding='utf-8')as f:
