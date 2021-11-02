@@ -1,0 +1,8 @@
+*.pyc
+*.spec
+Pipfile
+save
+required_package
+data
+build
+dist
