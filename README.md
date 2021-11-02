@@ -86,7 +86,8 @@
 ## 特别注意
 - 务必手工检查程序输出结果，部分pdf会出现空白情况，一般可以从pdf文件大小看出（此类文件都特别小），这种网页需要手动重新保存
 - 第二步中，如果提前取消任务，等到所有线程都停止时再关闭主页面，同理任务运行完毕的标志是所有线程都运行完毕
-![image] (https://github.com/cyl628/save-website-as-pdf/blob/main/figure/logwindow1.png)
-![image] (https://github.com/cyl628/save-website-as-pdf/blob/main/figure/logwindow2.png)
+
+![image](https://github.com/cyl628/save-website-as-pdf/blob/main/figure/logwindow1.png)
+![image](https://github.com/cyl628/save-website-as-pdf/blob/main/figure/logwindow2.png)
 
 ## Contributing
