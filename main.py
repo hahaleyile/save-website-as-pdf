@@ -9,7 +9,7 @@ from src.pdf_saver import PDFSaver
 from func_timeout import FunctionTimedOut
 from pandas import read_excel
 from typing import List
-import time
+import json
 
 class PDFGenerateThread(QThread):
     show_info = pyqtSignal(str, bool)
@@ -76,25 +76,19 @@ class PDFGenerateThread(QThread):
 
 
 class MyMainWindow(QMainWindow, Ui_MainWindow):  
-    def __init__(self, MainWindow):
+    def __init__(self, MainWindow, config):
         super(MyMainWindow, self).__init__(MainWindow)
         self.setupUi(MainWindow)
-        log_savepath = './log/log.txt'
-        self.logwriter = LogWriter(log_savepath, self.log_content)
-        self.urlgenerator = UrlGenerator(self.logwriter)
+        self.logwriter = LogWriter(config['log_path'], self.log_content)
+        self.urlgenerator = UrlGenerator(self.logwriter, config['text_to_replace'])
         self.pdf_saver = PDFSaver(logwriter=self.logwriter)
         self.bind_action()
-        self.init_filepath()
-        self.default_dir = self.get_default_datadir()
-        self.thread_num = 4
+        self.default_dir = config['default_data_dir']
+        self.thread_num = config['thread_num']
     
     def write_info(self, info, to_user=True):
-        # print(info)
         if self.logwriter is not None:
             self.logwriter.write(info, to_user=to_user)
-    
-    def get_default_datadir(self):
-        return os.getcwd()
 
     # open window to choose existing file
     def get_file(self, default_dir, widget, filetype):
@@ -135,14 +129,10 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
     def set_fail_url_outpath(self):
         self.set_txt_save_path(self.default_dir, 'fail_url.txt', self.fail_url_outfile)
 
-    def init_filepath(self):
-        pass
-
     def handle_status(self, status):
         if not status[0]:
-            QMessageBox.critical(self, 'failure', '失败，请查看log日志并联系开发者')
-            self.logwriter.write(status[1])
-
+            self.write_info(status[1])
+            QMessageBox.critical(self, 'failure', '失败，请确认输入文件格式正确，请查看log日志并联系开发者')
 
     def generate_urls(self):
         if not (self.company_file.text() and self.base_url_infile.text() and self.url_list_outfile.text()):
@@ -188,9 +178,6 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
             self.write_info('线程{}启动'.format(i))
             self.thread_list.append(new_thread)
     
-    def print_(self, data):
-        print(data)
-    
     def handle_fail_item(self, urlitem):
         with open(self.fail_url_savepath, 'a+', encoding='utf-8')as f:
             f.writelines(urlitem + '\n')
@@ -209,15 +196,6 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
             thread.stop_ = True
         self.stop.setEnabled(False)
         self.save_pdf.setEnabled(True)
-        # time.sleep(5)
-        # while True:
-        #     running = 0
-        #     for thread in self.thread_list:
-        #         if thread.isRunning():
-        #             running = 1
-        #     if not running:
-        #         self.write_info('全部结束')
-        #         break
         QApplication.processEvents()
     
     def click_start(self):
@@ -248,9 +226,11 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         self.stop.clicked.connect(self.click_stop)
 # %%
 if __name__ == '__main__':
+    with open('./config.json')as f:
+        config = json.loads(f.read())
     app = QApplication(sys.argv)
     MainWindow = QMainWindow()
-    ui = MyMainWindow(MainWindow)
+    ui = MyMainWindow(MainWindow, config)
     MainWindow.show()
     sys.exit(app.exec_())
 # %%

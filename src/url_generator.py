@@ -44,8 +44,9 @@ class UrlGenerator:
     xxx公司-xx(省/市/区/县...)-类型(e.g. 工商、人社, ...)\turl
     ```
     '''
-    def __init__(self, logwriter=None):
+    def __init__(self, logwriter=None, text_to_replace="{}"):
         self.logwriter = logwriter
+        self.text_to_replace = text_to_replace
 
     def write_info(self, info):
         print(info)
@@ -111,8 +112,7 @@ class UrlGenerator:
                 for place in self.com2place[com]:
                     type2url = self.fetch_type_url_dic(place)
                     for typename in type2url:
-                        url = type2url[typename].replace('{}', 'hhhh').replace('hhhh', com) 
-                        "改成hhhh"
+                        url = type2url[typename].replace(self.text_to_replace, com)
                         d['filename'].append('{}-{}-{}'.format(com, place, typename))
                         d['url'].append(url)
             #outfile = os.path.join(outdir, filename)+'.txt'

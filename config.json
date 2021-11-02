@@ -1,0 +1,6 @@
+{
+    "log_path": "./log/log.txt",
+    "thread_num": 4,
+    "default_data_dir": "./data",
+    "text_to_replace": "{}"
+}
