@@ -91,3 +91,4 @@
 ![image](https://github.com/cyl628/save-website-as-pdf/blob/main/figure/logwindow2.png)
 
 ## Contributing
+Thanks to [@aprillianrh](https://github.com/aprillianrh) for ideas and promotion.
