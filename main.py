@@ -223,7 +223,7 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                     existing_files.append(f)
         true_fail_list = list(set(fail_list).difference(set(existing_files)))
         with open(self.fail_url_savepath, "w", encoding='utf-8')as fw:
-            fw.writelines(["\t".join([f[:-4], d[f[:-4]]]) for f in true_fail_list])
+            fw.writelines("\n".join(["\t".join([f[:-4], d[f[:-4]]]) for f in true_fail_list]))
         return
     
     @catch_except
